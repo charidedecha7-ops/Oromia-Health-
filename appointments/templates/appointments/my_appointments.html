@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2><i class="bi bi-calendar-check"></i> My Appointments</h2>
+        <a href="{% url 'book_appointment' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Book New Appointment
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% if appointments %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>APT-{{ appointment.id }}</td>
+                        <td>{{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.reason|truncatewords:10 }}</td>
+                        <td>
+                            {% if appointment.status == 'Pending' %}
+                            <span class="badge bg-warning">{{ appointment.status }}</span>
+                            {% elif appointment.status == 'Approved' %}
+                            <span class="badge bg-success">{{ appointment.status }}</span>
+                            {% elif appointment.status == 'Completed' %}
+                            <span class="badge bg-info">{{ appointment.status }}</span>
+                            {% else %}
+                            <span class="badge bg-danger">{{ appointment.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> You don't have any appointments yet.
+            <a href="{% url 'book_appointment' %}">Book your first appointment</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

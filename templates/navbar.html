@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="bi bi-heart-pulse-fill text-danger"></i> HU Health
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                {% if user.role == 'doctor' %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'manage_appointments' %}">Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Patients</a></li>
+                {% elif user.role == 'student' %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'my_appointments' %}">My Appointments</a></li>
+                <li class="nav-link" href="#">Medical Records</a></li>
+                {% elif user.role == 'receptionist' %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'manage_appointments' %}">Manage Appointments</a>
+                </li>
+                {% endif %}
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown">
+                        {{ user.username }} ({{ user.get_role_display }})
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item text-danger">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-primary ms-2" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white ms-2" href="{% url 'register_student' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

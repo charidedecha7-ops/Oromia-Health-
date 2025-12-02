@@ -1,0 +1,10 @@
+Django>=5.0
+psycopg2-binary
+djangorestframework
+django-bootstrap-v5
+whitenoise
+Pillow
+reportlab
+gunicorn
+dj-database-url
+python-decouple

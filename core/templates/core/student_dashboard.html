@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <h2>Student Dashboard</h2>
+        <p class="lead">Welcome, {{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Book Appointment</h5>
+                <p class="card-text">Schedule a visit with a doctor.</p>
+                <a href="{% url 'book_appointment' %}" class="btn btn-primary">Book Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <h5 class="card-title">My Medical Records</h5>
+                <p class="card-text">View your history and prescriptions.</p>
+                <a href="#" class="btn btn-secondary">View Records</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Lab Results</h5>
+                <p class="card-text">Check status of your lab tests.</p>
+                <a href="#" class="btn btn-info text-white">View Results</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
